@@ -23,17 +23,37 @@ function findUniquebetter(arr) {
   }
   return -1;
 }
-function findUniqueOptimised(arr){
-    let n = arr.length;
-    let unique = 0;
-    for(let i=0;i<n;i++){
-        unique = unique ^ arr[i];
-    }
-    return unique;
+function findUniqueOptimisedXOR(arr) {
+  let n = arr.length;
+  let unique = 0;
+  for (let i = 0; i < n; i++) {
+    unique = unique ^ arr[i];
+  }
+  return unique;
 }
+function findUniqueOptimisedHashMAp(arr) {
+  let frequencyMap = {}; //create a hashMap
+  //Populate the HashMAp with the frequencies
+  for (let i = 0; i < arr.length; i++) {
+    let num = arr[i];
+    if (frequencyMap[num] !== undefined) {
+      frequencyMap[num] += 1; //increement the count if the number exist
+    } else {
+      frequencyMap[num] = 1; // Initilize the count if the number don't exist
+    }
+  }
+  //Find the unique Element using a second Loop
+  let keys = Object.keys(frequencyMap);
 
+  for (let i = 0; i < keys.length; i++) {
+    if (frequencyMap[keys[i]] === 1) {
+      return parseInt(keys[i]); //return the unique Element
+    }
+  }
+  return -1;//return -1 when no unique Element is found.
+}
 let arr = [2, 4, 7, 2, 7];
-let result = findUniqueOptimised(arr);
+let result = findUniqueOptimisedHashMAp(arr);
 console.log(result);
 
 // Test cases
